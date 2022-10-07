@@ -1,0 +1,40 @@
+1- Crear la base de datos en phpmyadmin
+2- Debatir posibles entidades del ejemplo
+    * Provincia
+        - id
+        - nombre
+
+    * Localidad
+        - id
+        - nombre
+        - provincia_id
+
+    * Barrio
+        - id
+        - nombre
+        - localidad_id
+
+    * Sector/Area
+        - id 
+        - nombre
+        - interno
+
+    * Persona
+        - id 
+        - nombre
+        - apellido
+        - correo
+        - dni
+        - legajo
+        - fechaNacimiento
+        - area_id
+        - barrio_id
+        - provincia_id
+    
+    * Registro
+        - id
+        - fechaHoraIngreso
+        - fechaHoraEgreso
+        - persona_id
+
+    

@@ -1,0 +1,13 @@
+Estos pasos sin datos
+    1- borrar la clave foranea provincia_id de barrio
+    2- cambiar el nombre de provincia_id en barrio a localidad_id
+    3- borrar provincia_id de barrios y crear una nueva columna que se llame localidad_id
+    4- crear la relacion de clave foranea
+
+    Con datos
+    1- borrar la clave foranea provincia_id de barrio
+    2- creas un columna localidad_id 
+    3 -Renombras 
+    
+    
+    
