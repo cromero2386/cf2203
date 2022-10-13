@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Provincia extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * The table associated with the model.
      *
@@ -29,8 +29,4 @@ class Provincia extends Model
      * @var array
      */
     protected $fillable = ['nombre'];
- 
-
-
-
 }

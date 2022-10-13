@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Localidad extends Model
+class Barrio extends Model
 {
     use SoftDeletes;
 
@@ -14,7 +14,7 @@ class Localidad extends Model
      *
      * @var string
      */
-    protected $table = 'localidades';
+    protected $table = 'barrios';
 
     /**
      * The primary key associated with the table.
@@ -28,5 +28,5 @@ class Localidad extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'provincia_id'];
+    protected $fillable = ['nombre', 'localidad_id'];
 }
