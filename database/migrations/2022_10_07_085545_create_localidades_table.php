@@ -18,7 +18,7 @@ class CreateLocalidadesTable extends Migration
             $table->string('nombre');
             //Clave foranea
             $table->unsignedBigInteger('provincia_id');
-            // Linea donde el indico con que clave primaria de que tabla se relaciona
+            // Linea donde el indico a provincia_id con que clave primaria de que tabla se relaciona
             $table->foreign('provincia_id')->references('id')->on('provincias');
             $table->timestamps();
             $table->softDeletes();

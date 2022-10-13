@@ -1,13 +1,22 @@
+
+    
+Situación planteada:
+
+Tenemos las tablas de provincia y barrios.
+1- En barrios tenemos la clave de provincia_id. 
+2- Luego de un tiempo se agrega localidades.
+3- Tenemos que modificar la tabla barrios, la columna provincia_id pasa a localidades.
+4- Y en barrios se agrega localidad_id.
+
+Posibles formas de resolverlos:
+
 Estos pasos sin datos
     1- borrar la clave foranea provincia_id de barrio
     2- cambiar el nombre de provincia_id en barrio a localidad_id
-    3- borrar provincia_id de barrios y crear una nueva columna que se llame localidad_id
-    4- crear la relacion de clave foranea
+    3- crear la relacion de clave foranea localidad con barrios
 
-    Con datos
-    1- borrar la clave foranea provincia_id de barrio
-    2- creas un columna localidad_id 
-    3 -Renombras 
-    
-    
-    
+Con datos
+
+1- Agregar un campo localidad_id en barrios
+2- Cargar las localidades en la columna creada en el punto 1.
+3- Luego en localidades agregar la provincia que estaba en barrios, realizando alguna query que compare las coincidencias.
