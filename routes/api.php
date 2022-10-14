@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Listar todos
 Route::get('getAllAreas', [AreaController::class, 'index']);
 // Listar un area
-Route::get('getArea/{area}', [AreaController::class, 'show']);
+Route::get('getArea/{id}', [AreaController::class, 'show']);
 // Registrar un area
 Route::post('postArea', [AreaController::class, 'store']);
 // Actualizar un area

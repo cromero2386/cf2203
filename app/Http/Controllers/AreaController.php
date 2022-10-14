@@ -50,9 +50,14 @@ class AreaController extends Controller
      * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function show(int $area)
+    public function show(int $id)
     {
-        //
+        $area = Area::select('id', 'nombre')->where('id', $id)->get();
+
+        return response()->json([
+            'mensaje' => 'El area es:',
+            'data' => $area,
+        ]);
     }
 
     /**
