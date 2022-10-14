@@ -14,7 +14,13 @@ class AreaController extends Controller
      */
     public function index()
     {
-        //
+        //SELECT id, nombre FROM areas;
+        $areas = Area::select('id', 'nombre')->get();
+
+        return response()->json([
+            'mensaje' => 'Listado de areas',
+            'data' => $areas,
+        ]);
     }
 
     /**
@@ -44,7 +50,7 @@ class AreaController extends Controller
      * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function show(Area $area)
+    public function show(int $area)
     {
         //
     }
@@ -78,8 +84,14 @@ class AreaController extends Controller
      * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Area $area)
+    public function destroy(int $id)
     {
-        //
+        $area = Area::findOrFail($id);
+        $area->delete();
+
+        return response()->json([
+            'mensaje' => 'El area se elimino correctamente',
+            'data' => $area,
+        ]);
     }
 }
