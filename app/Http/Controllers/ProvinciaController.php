@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Provincia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ProvinciaController extends Controller
 {
@@ -14,17 +15,19 @@ class ProvinciaController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $provincias = Provincia::select('id', 'nombre')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data = $provincias->map(function ($area) {
+            return [
+                'id' => $area->id,
+                'nombre' => $area->nombre,
+            ];
+        });
+
+        return response()->json([
+            'mensaje' => 'Listado de provincias disponibles',
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -35,7 +38,19 @@ class ProvinciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Http::get('https://apis.datos.gob.ar/georef/api/provincias');
+
+        $provincias = json_decode($response->getBody(), true);
+
+        foreach ($provincias['provincias'] as $value) {
+            Provincia::updateOrCreate([
+                'nombre' => $value['nombre'],
+            ],
+                ['nombre' => $value['nombre']]
+            );
+        }
+
+        return response()->json(['mensaje' => 'Se inserto las provincias']);
     }
 
     /**
@@ -44,42 +59,18 @@ class ProvinciaController extends Controller
      * @param  \App\Models\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function show(Provincia $provincia)
+    public function show(int $id)
     {
-        //
-    }
+        $provincia = Provincia::select('id', 'nombre')->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Provincia  $provincia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Provincia $provincia)
-    {
-        //
-    }
+        $data = [
+            'id' => $provincia->id,
+            'nombre' => $provincia->nombre,
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Provincia  $provincia
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Provincia $provincia)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Provincia  $provincia
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Provincia $provincia)
-    {
-        //
+        return response()->json([
+            'mensaje' => 'Datos de la provincia',
+            'data' => $data,
+        ]);
     }
 }
