@@ -14,17 +14,19 @@ class BarrioController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $barrios = Barrio::select('id', 'nombre')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data = $barrios->map(function ($barrio) {
+            return [
+                'id' => $barrio->id,
+                'nombre' => $barrio->nombre,
+            ];
+        });
+
+        return response()->json([
+            'mensaje' => 'Listado de barrios disponibles',
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -35,51 +37,83 @@ class BarrioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => ['required'],
+            'localidad_id' => ['required', 'integer'],
+        ]);
+
+        $barrio = Barrio::create([
+            'nombre' => $request['nombre'],
+            'localidad_id' => $request['localidad_id'],
+        ]);
+
+        return response()->json([
+            'mensaje' => 'Se Agrego Correctamente el barrio',
+            'data' => $barrio,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Barrio  $barrio
+     * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function show(Barrio $barrio)
+    public function show(int $id)
     {
-        //
-    }
+        $data = Barrio::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Barrio  $barrio
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Barrio $barrio)
-    {
-        //
+        $barrio = [
+            'id' => $data->id,
+            'nombre' => $data->nombre,
+            'localidad_id' => $data->localidad_id,
+        ];
+
+        return response()->json([
+            'mensaje' => 'Datos del barrio solicitado',
+            'data' => $barrio,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Barrio  $barrio
+     * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Barrio $barrio)
+    public function update(Request $request, int $id)
     {
-        //
+        $request->validate([
+            'nombre' => ['required'],
+            'localidad_id' => ['required', 'integer'],
+        ]);
+
+        $barrio = Barrio::findOrFail($id);
+        $barrio->nombre = $request['nombre'];
+        $barrio->localidad_id = $request['localidad_id'];
+        $barrio->save();
+
+        return response()->json([
+            'mensaje' => 'Datos del barrio modificado',
+            'data' => $barrio,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Barrio  $barrio
+     * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barrio $barrio)
+    public function destroy(int $id)
     {
-        //
+        $barrio = Barrio::findOrFail($id);
+        $barrio->delete();
+
+        return response()->json([
+            'mensaje' => 'El barrio se elimino correctamente',
+            'data' => $barrio,
+        ]);
     }
 }

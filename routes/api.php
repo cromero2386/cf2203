@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\BarrioController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\ProvinciaController;
 use Illuminate\Http\Request;
@@ -57,3 +58,17 @@ Route::post('postLocalidad', [LocalidadController::class, 'store']);
 Route::put('updateLocalidad', [LocalidadController::class, 'update']);
 // borrar una localidad
 Route::delete('borrarLocalidad/{id}', [LocalidadController::class, 'destroy']);
+
+/**
+ * Barrio
+ */
+// Listar todos
+Route::get('getAllBarrios', [BarrioController::class, 'index']);
+// Listar un barrio
+Route::get('getBarrios/{id}', [BarrioController::class, 'show']);
+// Registrar un barrio
+Route::post('postBarrio', [BarrioController::class, 'store']);
+// Actualizar un barrio
+Route::put('updateBarrio', [BarrioController::class, 'update']);
+// borrar un barrio
+Route::delete('borrarBarrio/{id}', [BarrioController::class, 'destroy']);

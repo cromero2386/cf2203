@@ -66,7 +66,7 @@ class LocalidadController extends Controller
         $localidad = [
             'id' => $data->id,
             'nombre' => $data->nombre,
-            'provincia_id' => $data->interno,
+            'provincia_id' => $data->provincia_id,
         ];
 
         return response()->json([
