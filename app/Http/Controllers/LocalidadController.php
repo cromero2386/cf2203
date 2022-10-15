@@ -14,17 +14,19 @@ class LocalidadController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $localidades = Localidad::select('id', 'nombre')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data = $localidades->map(function ($localidad) {
+            return [
+                'id' => $localidad->id,
+                'nombre' => $localidad->nombre,
+            ];
+        });
+
+        return response()->json([
+            'mensaje' => 'Listado de localidades disponibles',
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -35,7 +37,20 @@ class LocalidadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => ['required'],
+            'provincia_id' => ['required', 'integer'],
+        ]);
+
+        $localidad = Localidad::create([
+            'nombre' => $request['nombre'],
+            'provincia_id' => $request['provincia_id'],
+        ]);
+
+        return response()->json([
+            'mensaje' => 'Se Agrego Correctamente la localidad',
+            'data' => $localidad,
+        ]);
     }
 
     /**
@@ -44,20 +59,20 @@ class LocalidadController extends Controller
      * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function show(Localidad $localidad)
+    public function show(int $id)
     {
-        //
-    }
+        $data = Localidad::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Localidad  $localidad
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Localidad $localidad)
-    {
-        //
+        $localidad = [
+            'id' => $data->id,
+            'nombre' => $data->nombre,
+            'provincia_id' => $data->interno,
+        ];
+
+        return response()->json([
+            'mensaje' => 'Datos de la localidad solicitada',
+            'data' => $localidad,
+        ]);
     }
 
     /**
@@ -67,9 +82,22 @@ class LocalidadController extends Controller
      * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Localidad $localidad)
+    public function update(Request $request, int $id)
     {
-        //
+        $request->validate([
+            'nombre' => ['required'],
+            'provincia_id' => ['required', 'integer'],
+        ]);
+
+        $localidad = Localidad::findOrFail($id);
+        $localidad->nombre = $request['nombre'];
+        $localidad->provincia_id = $request['provincia_id'];
+        $localidad->save();
+
+        return response()->json([
+            'mensaje' => 'Datos de la localidad modificada',
+            'data' => $localidad,
+        ]);
     }
 
     /**
@@ -78,8 +106,14 @@ class LocalidadController extends Controller
      * @param  \App\Models\Localidad  $localidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Localidad $localidad)
+    public function destroy(int $id)
     {
-        //
+        $localidad = Localidad::findOrFail($id);
+        $localidad->delete();
+
+        return response()->json([
+            'mensaje' => 'La localidad se elimino correctamente',
+            'data' => $localidad,
+        ]);
     }
 }

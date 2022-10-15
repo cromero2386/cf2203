@@ -17,10 +17,10 @@ class ProvinciaController extends Controller
     {
         $provincias = Provincia::select('id', 'nombre')->get();
 
-        $data = $provincias->map(function ($area) {
+        $data = $provincias->map(function ($provincia) {
             return [
-                'id' => $area->id,
-                'nombre' => $area->nombre,
+                'id' => $provincia->id,
+                'nombre' => $provincia->nombre,
             ];
         });
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\ProvinciaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +43,17 @@ Route::post('insertProvincias', [ProvinciaController::class, 'store']);
 Route::get('getAllProvincias', [ProvinciaController::class, 'index']);
 // Listar un provincia
 Route::get('getProvincia/{id}', [ProvinciaController::class, 'show']);
+
+/**
+ * Localidad
+ */
+// Listar todos
+Route::get('getAllLocalidades', [LocalidadController::class, 'index']);
+// Listar una localidad
+Route::get('getLocalidad/{id}', [LocalidadController::class, 'show']);
+// Registrar una localidad
+Route::post('postLocalidad', [LocalidadController::class, 'store']);
+// Actualizar una localidad
+Route::put('updateLocalidad', [LocalidadController::class, 'update']);
+// borrar una localidad
+Route::delete('borrarLocalidad/{id}', [LocalidadController::class, 'destroy']);
