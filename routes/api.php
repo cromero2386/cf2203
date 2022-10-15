@@ -3,6 +3,7 @@
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\BarrioController;
 use App\Http\Controllers\LocalidadController;
+use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProvinciaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,10 +66,24 @@ Route::delete('borrarLocalidad/{id}', [LocalidadController::class, 'destroy']);
 // Listar todos
 Route::get('getAllBarrios', [BarrioController::class, 'index']);
 // Listar un barrio
-Route::get('getBarrios/{id}', [BarrioController::class, 'show']);
+Route::get('getBarrio/{id}', [BarrioController::class, 'show']);
 // Registrar un barrio
 Route::post('postBarrio', [BarrioController::class, 'store']);
 // Actualizar un barrio
 Route::put('updateBarrio', [BarrioController::class, 'update']);
 // borrar un barrio
 Route::delete('borrarBarrio/{id}', [BarrioController::class, 'destroy']);
+
+/**
+ * Persona
+ */
+// Listar todos
+Route::get('getAllPersonas', [PersonaController::class, 'index']);
+// Listar una persona
+Route::get('getPersona/{id}', [PersonaController::class, 'show']);
+// Registrar una persona
+Route::post('postPersona', [PersonaController::class, 'store']);
+// Actualizar una persona
+Route::put('updatePersona', [PersonaController::class, 'update']);
+// borrar una persona
+Route::delete('borrarPersona/{id}', [PersonaController::class, 'destroy']);
