@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PersonaController extends Controller
 {
@@ -47,12 +48,12 @@ class PersonaController extends Controller
             'provincia_id' => ['required'],
         ]);
 
-        $barrio = Persona::create([
+        $persona = Persona::create([
             'nombre' => $request['nombre'],
             'apellido' => $request['apellido'],
             'correo' => $request['correo'],
             'dni' => $request['dni'],
-            'legajo' => $request['legajo'],
+            'legajo' => Str::random(6),
             'fechaNacimiento' => $request['fechaNacimiento'],
             'area_id' => $request['area_id'],
             'barrio_id' => $request['barrio_id'],
@@ -61,7 +62,7 @@ class PersonaController extends Controller
 
         return response()->json([
             'mensaje' => 'Se Agrego Correctamente la persona',
-            'data' => $barrio,
+            'data' => $persona,
         ]);
     }
 
@@ -73,12 +74,16 @@ class PersonaController extends Controller
      */
     public function show(int $id)
     {
-        $data = Persona::findOrFail($id);
+        $data = Persona::with('barrio.localidad.provicia', 'area')->findOrFail($id);
+        //SELECT * FROM personas WHERE id = $id;
 
         $persona = [
             'id' => $data->id,
             'nombre' => $data->nombre,
             'apellido' => $data->apellido,
+            'barrio' => $data->barrio->nombre,
+            'localidad' => $data->barrio->localidad->nombre,
+            'area' => $data->area->nombre,
         ];
 
         return response()->json([

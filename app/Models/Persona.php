@@ -39,4 +39,20 @@ class Persona extends Model
         'barrio_id',
         'provincia_id',
     ];
+
+    /**
+     * Obtiene el barrio de la persona
+     */
+    public function barrio()
+    {
+        return $this->belongsTo(Barrio::class, 'barrio_id', 'id');
+    }
+
+    /**
+     * Obtiene el barrio de la persona
+     */
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id', 'id');
+    }
 }

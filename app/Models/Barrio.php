@@ -29,4 +29,12 @@ class Barrio extends Model
      * @var array
      */
     protected $fillable = ['nombre', 'localidad_id'];
+
+    /**
+     * Obtiene todas las personas del barrio
+     */
+    public function personas()
+    {
+        return $this->hasMany(Persona::class, 'barrio_id', 'id');
+    }
 }
