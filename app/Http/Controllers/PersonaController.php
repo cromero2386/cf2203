@@ -74,7 +74,7 @@ class PersonaController extends Controller
      */
     public function show(int $id)
     {
-        $data = Persona::with('barrio.localidad.provicia', 'area')->findOrFail($id);
+        $data = Persona::with('barrio.localidad.provincia', 'area', 'provincia')->findOrFail($id);
         //SELECT * FROM personas WHERE id = $id;
 
         $persona = [
@@ -84,6 +84,7 @@ class PersonaController extends Controller
             'barrio' => $data->barrio->nombre,
             'localidad' => $data->barrio->localidad->nombre,
             'area' => $data->area->nombre,
+            'provincia_origin' => $data->provincia->nombre,
         ];
 
         return response()->json([

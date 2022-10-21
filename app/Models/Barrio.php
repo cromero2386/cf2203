@@ -37,4 +37,12 @@ class Barrio extends Model
     {
         return $this->hasMany(Persona::class, 'barrio_id', 'id');
     }
+
+    /**
+     * Obtiene la localidad del barrio
+     */
+    public function localidad()
+    {
+        return $this->belongsTo(Localidad::class, 'localidad_id', 'id');
+    }
 }

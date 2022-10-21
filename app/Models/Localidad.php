@@ -29,4 +29,12 @@ class Localidad extends Model
      * @var array
      */
     protected $fillable = ['nombre', 'provincia_id'];
+
+    /**
+     * Obtiene la provincia de la localidad
+     */
+    public function provincia()
+    {
+        return $this->belongsTo(Provincia::class, 'provincia_id', 'id');
+    }
 }
