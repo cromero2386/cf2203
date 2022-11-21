@@ -87,3 +87,4 @@ Route::post('postPersona', [PersonaController::class, 'store']);
 Route::put('updatePersona', [PersonaController::class, 'update']);
 // borrar una persona
 Route::delete('borrarPersona/{id}', [PersonaController::class, 'destroy']);
+//este es un comentario
